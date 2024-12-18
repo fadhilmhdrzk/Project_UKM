@@ -5,16 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\Daftar;
 use App\Http\Requests\StoreDaftarRequest;
 use App\Http\Requests\UpdateDaftarRequest;
+use Illuminate\Http\Request;
 
 class DaftarController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['daftar'] = \App\Models\Daftar::latest()->paginate(10);
-        return view('daftar_index', $data);
+        $search = $request->input('search');
+
+        // Query data UKM
+        $daftar = \App\Models\Daftar::when($search, function ($query, $search) {
+            return $query->where('nama2', 'like', "%{$search}%")
+                ->orWhere('nim2', 'like', "%{$search}%")
+                ->orWhere('kelas2', 'like', "%{$search}%")
+                ->orWhere('generasi2', 'like', "%{$search}%");
+        })
+            ->latest()
+            ->paginate(10); // Pagination
+        return view('daftar_index', compact('daftar', 'search'));
     }
 
     /**
@@ -22,13 +33,13 @@ class DaftarController extends Controller
      */
     public function create()
     {
-        //
+        return view('daftar_create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDaftarRequest $request)
+    public function store(Request $request)
     {
         $requestData = $request->validate([
             'nim2' => 'required',
@@ -36,19 +47,29 @@ class DaftarController extends Controller
             'kelas2' => 'required',
             'generasi2' => 'required',
         ]);
-        $ukm = new \App\Models\Daftar();
-        $ukm->fill($requestData);
-        $ukm->save();
+        $daftar = new \App\Models\Daftar();
+        $daftar->fill($requestData);
+        $daftar->save();
         flash('Data Sudah Disimpan')->success();
-        return back();
+        return redirect('/daftar');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Daftar $daftar)
+    public function show(Request $request, string $id)
     {
-        //
+        $requestData = $request->validate([
+            'nim2' => 'required',
+            'nama2' => 'required',
+            'kelas2' => 'required',
+            'generasi2' => 'required',
+        ]);
+        $daftar = \App\Models\Daftar::findOrFail($id);
+        $daftar->fill($requestData);
+        $daftar->save();
+        flash('Data Sudah Disimpan')->success();
+        return redirect('/daftar');
     }
 
     /**
@@ -70,8 +91,40 @@ class DaftarController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Daftar $daftar)
+    public function destroy(string $id)
     {
-        //
+        $daftar = \App\Models\Daftar::findOrFail($id);
+        $daftar->delete();
+        flash('Data Sudah Dihapus')->success();
+        return back();
+    }
+
+    // DaftarController
+    public function approve($id)
+    {
+        // Ambil data dari tabel daftar
+        $daftar = \App\Models\Daftar::findOrFail($id);
+
+        // Pindahkan data ke tabel ukm
+        \App\Models\Ukm::create([
+            'nim' => $daftar->nim2,
+            'nama' => $daftar->nama2,
+            'kelas' => $daftar->kelas2,
+            'generasi' => $daftar->generasi2,
+        ]);
+
+        // Hapus data dari daftar setelah dipindahkan
+        $daftar->delete();
+
+        // Beri notifikasi
+        flash('Pendaftar berhasil di-approve dan dipindahkan ke Anggota')->success();
+
+        // Redirect ke halaman daftar
+        return back();
+        $exists = \App\Models\ukm::where('nim', $daftar->nim2)->exists();
+        if ($exists) {
+            flash('Data sudah ada di tabel UKM')->error();
+            return back();
+        }
     }
 }

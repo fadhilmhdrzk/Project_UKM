@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\ukm;
 class HomeController extends Controller
 {
     /**
@@ -23,6 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('layouts.template');
+        // Hitung jumlah anggota
+        $jumlahAnggota = \App\Models\Ukm::count();
+
+        // Hitung jumlah pendaftar calon anggota
+        $jumlahPendaftar = \App\Models\Daftar::count();
+
+        return view('home', compact('jumlahAnggota', 'jumlahPendaftar'));
     }
 }

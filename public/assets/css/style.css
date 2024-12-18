@@ -7,7 +7,7 @@ File: style.css
 */
 
 
-/* 
+/*
 - General
 - Mini Sidebar
 - Submenu Wrapper
@@ -36,6 +36,30 @@ body {
     overflow-x: hidden;
     font-family: Roboto, sans-serif;
 }
+
+/* Tema Gelap */
+.dark-theme {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* Tema Terang */
+.light-theme {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+
+/* Styling untuk menu sidebar yang aktif */
+.sidebar-link.active {
+    background-color: #3a3b3c; /* Warna abu-abu */
+    color: #ffffff; /* Warna teks saat aktif */
+}
+
+.sidebar-link.active .parent-icon ion-icon {
+    color: #ffffff; /* Warna ikon saat aktif */
+}
+
 
 a {
     color: #923eb9;
@@ -312,7 +336,7 @@ ion-icon {
 	.wrapper.toggled:not(.sidebar-hovered) .sidebar-wrapper .metismenu .has-arrow:after {
 		display: none
 	}
-	
+
 }
 
 
@@ -343,7 +367,7 @@ ion-icon {
     z-index: 5;
     transition: 0.3s all;
     box-shadow: none;
-   
+
 }
 
 .top-header .navbar {
@@ -380,7 +404,7 @@ ion-icon {
     padding: 0 1.5rem;
     -webkit-animation: .6s cubic-bezier(.25, .8, .25, 1) 0s normal forwards 1 animdropdown;
     animation: .6s cubic-bezier(.25, .8, .25, 1) 0s normal forwards 1 animdropdown
-    
+
 }
 
 .top-header .navbar .searchbar .form-control {
@@ -395,7 +419,7 @@ ion-icon {
     background-color: #fff;
     border-color: #c27be4;
     box-shadow: 0 0 0 .25rem rgba(146, 62, 185, 0.3)
-    
+
 }
 
 .top-header .navbar .top-navbar-right .nav-item {
@@ -422,7 +446,7 @@ ion-icon {
 }
 
 .top-header .navbar .searchbar .search-icon {
-  
+
     color: #41464b;
     font-size: 1.2rem;
     opacity: 0.5;
@@ -705,12 +729,12 @@ ion-icon {
 .breadcrumb-title {
     font-size: 20px;
     border-right: 1.5px solid #ced3da;
-	
+
 }
 
 .page-breadcrumb .breadcrumb li.breadcrumb-item {
     font-size: 16px;
-	
+
 }
 
 .page-breadcrumb .breadcrumb li a {
@@ -1325,7 +1349,7 @@ ul.categories-list li {
 .social-login a {
     width: 50px;
     height: 50px;
-    
+
 }
 
 .social-login a img {
@@ -1433,7 +1457,7 @@ ul.categories-list li {
         border-right: 1px solid #eee;
         box-shadow: 0 0.125rem 0.5rem rgb(0 0 0 / 28%);
     }
-    
+
 }
 
 @media screen and (max-width:1024px) {
@@ -1441,14 +1465,14 @@ ul.categories-list li {
     .top-header .navbar .full-search-bar {
         left: 0;
     }
-    
+
 
     .sidebar-wrapper {
-    
+
         left: -300px;
     }
 
-  
+
     .wrapper .page-content-wrapper {
 
         margin-left: 0px;
@@ -1456,7 +1480,7 @@ ul.categories-list li {
     }
 
     .top-header{
-      
+
         left: 0px;
     }
 
@@ -1464,11 +1488,11 @@ ul.categories-list li {
 
 
    .wrapper.toggled .sidebar-wrapper{
-    
+
         left: 0px;
     }
 
-    
+
     .wrapper.toggled .page-content-wrapper {
 
         margin-left: 0px;
@@ -1478,7 +1502,7 @@ ul.categories-list li {
     }
 
     .wrapper.toggled .top-header{
-      
+
         left: 0px;
     }
 
@@ -1503,12 +1527,12 @@ ul.categories-list li {
 	}
 
 
-	
+
 
     .footer {
         left: 0px;
     }
-    
+
 
 }
 

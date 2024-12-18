@@ -13,6 +13,6 @@ class ukmSeeder extends Seeder
      */
     public function run(): void
     {
-        ukm::factory()->count(30)->create();
+        ukm::factory()->count(10)->create();
     }
 }

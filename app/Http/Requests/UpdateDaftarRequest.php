@@ -6,23 +6,29 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateDaftarRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
+    public function authorize()
     {
-        return false;
+        return true; // Pastikan diubah menjadi true
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
+    public function rules()
     {
         return [
-            //
+            'nim2' => 'required', // Validasi minimal 8 angka
+            'nama2' => 'required|string|max:255',
+            'kelas2' => 'required|string',
+            'generasi2' => 'required|in:23,24,25',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'nama2.required' => 'Nama harus diisi.',
+            'nim2.required' => 'NIM harus diisi.',
+            'kelas2.required' => 'Kelas harus diisi.',
+            'nim2.min' => 'NIM minimal 9 angka.',
+            'generasi2.required' => 'Generasi harus diisi.',
         ];
     }
 }

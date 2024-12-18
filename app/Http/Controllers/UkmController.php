@@ -9,11 +9,27 @@ class UkmController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    // UkmController
+    public function index(Request $request)
     {
-        $data['ukm'] = \App\Models\ukm::latest()->paginate(10);
-        return view("ukm_index", $data);
+        // Tangkap input pencarian
+        $search = $request->input('search');
+
+        // Query data UKM
+        $ukm = \App\Models\Ukm::when($search, function ($query, $search) {
+            return $query->where('nama', 'like', "%{$search}%")
+                ->orWhere('nim', 'like', "%{$search}%")
+                ->orWhere('kelas', 'like', "%{$search}%")
+                ->orWhere('generasi', 'like', "%{$search}%");
+        })
+            ->latest()
+            ->paginate(10); // Pagination
+
+        // Kirim data ke view
+        return view('ukm_index', compact('ukm', 'search'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -38,7 +54,7 @@ class UkmController extends Controller
         $ukm->fill($requestData);
         $ukm->save();
         flash('Data Sudah Disimpan')->success();
-        return back();
+        return redirect('/ukm');
     }
 
     /**

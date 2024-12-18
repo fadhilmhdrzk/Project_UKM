@@ -30,7 +30,6 @@
     <!-- Search Kelas -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-
     <title>Fobia - Bootstrap5 Admin Template</title>
 </head>
 
@@ -40,13 +39,13 @@
             <div class="col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-header bg-primary text-white text-center">
-                        <h4>Login</h4>
+                        <h4>Register</h4>
                     </div>
                     <div class="card-body">
                         @if (session('error'))
                             <div class="alert alert-danger">{{ session('error') }}</div>
                         @endif
-                        <form action="{{ route('doLogin') }}" method="POST">
+                        <form action="{{ route('doRegister') }}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
@@ -56,12 +55,17 @@
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" id="password" name="password" class="form-control" required>
                             </div>
+                            <div class="mb-3">
+                                <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                <input type="password" id="password_confirmation" name="password_confirmation"
+                                    class="form-control" required>
+                            </div>
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">Login</button>
+                                <button type="submit" class="btn btn-primary">Register</button>
                             </div>
                         </form>
                         <div class="mt-3 text-center">
-                            <p>Belum punya akun? <a href="{{ route('register') }}">Daftar sekarang</a></p>
+                            <p>Sudah punya akun? <a href="{{ route('login') }}">Login sekarang</a></p>
                         </div>
                     </div>
                 </div>

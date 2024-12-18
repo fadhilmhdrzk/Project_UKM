@@ -17,14 +17,14 @@
                     <label for="nim">NIM</label>
                     <input type="text" class="form-control @error('nim') is-invalid
                     @enderror"
-                        id="nim" name="nim" value="{{ old('nim') ?? $ukm->nim }}" placeholder="Masukkan Nama">
+                        id="nim" name="nim" value="{{ old('nim') ?? $ukm->nim }}" placeholder="Masukkan NIM">
                     <span class="text-danger">{{ $errors->first('nim') }}</span>
                 </div>
                 <div class="form-group mb-3">
                     <label for="kelas">Kelas</label>
                     <input type="text" class="form-control @error('kelas') is-invalid
                     @enderror"
-                        id="kelas" name="kelas" value="{{ old('kelas') ?? $ukm->kelas }}" placeholder="Masukkan Nama">
+                        id="kelas" name="kelas" value="{{ old('kelas') ?? $ukm->kelas }}" placeholder="Masukkan Kelas">
                     <span class="text-danger">{{ $errors->first('kelas') }}</span>
                 </div>
                 <div class="form-group mb-3">
