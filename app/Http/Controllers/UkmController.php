@@ -76,7 +76,7 @@ class UkmController extends Controller
         return redirect('/ukm');
     }
 
-    /**
+    /***
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
